@@ -52,19 +52,21 @@ static void menu() {
 int main() {
 
     int secim,i;
-    int sayilar[25] = {0};
+    int sayilar[5] = { 0 }, arr[5] = {0};
+
     do {
         menu();
         scanf_s("%d", &secim);
         if (secim == 1) {
 
             printf("Sayilari giriniz. Ayni sayi 2 kere girilmemelidir.\n\n");
-            for (i = 0; i < 25; i++) {
+            for (i = 0; i < 5; i++) {
                 printf("\t\t%d. sayiyi giriniz.\n",i+1);
                 scanf_s("%d", &sayilar[i]);
+                arr[i] = sayilar[i];
             }
-
-            int arr[] = { 10, 7, 8, 9, 1, 5 };
+            
+            
             int n = sizeof(arr) / sizeof(arr[0]);
 
             printf("Original array: ");
@@ -76,13 +78,26 @@ int main() {
 
             // Perform recursive QuickSort
             quickSort(arr, 0, n - 1);
+            for (i = 0; i < 5; i++) {
+                if (arr[i] == sayilar[i]) {
+                    printf("Siralamaniz dogru ");
+                    for (i = 0; i < n; i++) {
+                        printf("%d ", arr[i]);
+                    }
+                    printf("\n");
+                }
+                else {
+                    printf("Siralamaniz yanlis ");
+                    printf("Sorted array: ");
 
-            printf("Sorted array: ");
+                    for (i = 0; i < n; i++) {
+                        printf("%d ", arr[i]);
+                    }
+                    printf("\n");
+                }
 
-            for (i = 0; i < n; i++) {
-                printf("%d ", arr[i]);
             }
-            printf("\n");
+            
 
 
 
