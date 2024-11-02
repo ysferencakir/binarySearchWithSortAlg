@@ -36,6 +36,23 @@ static void quickSort(int arr[], int low, int high) {
     }
 }
 
+static int binsrch(int a[], int x, int low, int high)
+{
+    int mid;
+
+    if (low > high)
+        return (-1);
+    mid = (low + high) / 2;
+    if (x == a[mid])
+        return (mid);
+    if (x < a[mid])
+        return (binsrch(a, x, low, mid - 1));
+    else
+        return (binsrch(a, x, mid + 1, high));
+}
+
+
+
 
 static void menu() {
     printf("\n");
@@ -51,7 +68,7 @@ static void menu() {
 
 int main() {
 
-    int secim,i;
+    int secim=1,i=0,x=0;
     int sayilar[5] = { 0 }, arr[5] = {0};
 
     do {
@@ -97,9 +114,16 @@ int main() {
                 }
 
             }
-            
+            printf("Sayiyi giriniz.\n\n");
+            scanf_s("%d", &x);
+            i = binsrch(arr, x, 0, n - 1); // ilk n elemanda arama yapacak.
 
-
+            if (i != -1) {
+                printf("Girdiginiz sayi %d. indekste bulundu.\n", i);
+            }
+            else {
+                printf("Girdiginiz sayi dizide bulunamadi.\n");
+            }
 
 
 
