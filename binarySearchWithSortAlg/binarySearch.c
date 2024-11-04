@@ -1,14 +1,15 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include<stdlib.h>
+#define NUMBERSET 25
 
-
-static void swap(int* a, int* b) {
+void swap(int* a, int* b) {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-static int partition(int arr[], int low, int high) {
+
+int partition(int arr[], int low, int high) {
     int pivot = arr[high]; // Pivot element
     int i = (low - 1); // Smaller element index
     int j;
@@ -25,7 +26,7 @@ static int partition(int arr[], int low, int high) {
 }
 
 
-static void quickSort(int arr[], int low, int high) {
+void quickSort(int arr[], int low, int high) {
     if (low < high) {
         // pi is partitioning index, arr[pi] is now at right place
         int pi = partition(arr, low, high);
@@ -36,7 +37,8 @@ static void quickSort(int arr[], int low, int high) {
     }
 }
 
-static int binsrch(int a[], int x, int low, int high)
+
+int binsrch(int a[], int x, int low, int high)
 {
     int mid;
 
@@ -52,9 +54,7 @@ static int binsrch(int a[], int x, int low, int high)
 }
 
 
-
-
-static void menu() {
+void menu() {
     printf("\n");
     printf("***********************************************************\n");
     printf("*           Girilen sayilari arayan program.              *\n");
@@ -68,26 +68,43 @@ static void menu() {
 
 int main() {
 
-    int secim=1,i=0,x=0;
-    int sayilar[5] = { 0 }, arr[5] = {0};
+    int secim = 1, i = 0, x = 0, n = 0;
+    int sayilar[NUMBERSET] = { 0 }, arr[NUMBERSET] = { 0 };
+    int tekilmi;
 
     do {
+
         menu();
+
         scanf_s("%d", &secim);
         if (secim == 1) {
 
             printf("Sayilari giriniz. Ayni sayi 2 kere girilmemelidir.\n\n");
-            for (i = 0; i < 5; i++) {
-                printf("\t\t%d. sayiyi giriniz.\n",i+1);
-                scanf_s("%d", &sayilar[i]);
+            for (i = 0; i < NUMBERSET; i++) {
+
+
+                do {
+                    tekilmi = 0;
+                    printf("\t\t%d. sayiyi giriniz.\n", i + 1);
+                    scanf_s("%d", &sayilar[i]);
+
+                    for (int j = 0; j < i; j++) {
+                        if (sayilar[i] == sayilar[j]) {
+                            printf("Bu sayi zaten girildi. Farkli bir sayi giriniz.\n");
+                            tekilmi = 1;
+                            break;
+                        }
+                    }
+                } while (tekilmi);
                 arr[i] = sayilar[i];
             }
-            
-            
+
+
+
             int n = sizeof(arr) / sizeof(arr[0]);
 
             printf("Original array: ");
-            
+
             for (i = 0; i < n; i++) {
                 printf("%d ", arr[i]);
             }
@@ -95,7 +112,7 @@ int main() {
 
             // Perform recursive QuickSort
             quickSort(arr, 0, n - 1);
-            for (i = 0; i < 5; i++) {
+            for (i = 0; i < NUMBERSET; i++) {
                 if (arr[i] == sayilar[i]) {
                     printf("Siralamaniz dogru ");
                     for (i = 0; i < n; i++) {
@@ -105,7 +122,9 @@ int main() {
                 }
                 else {
                     printf("Siralamaniz yanlis ");
-                    printf("Sorted array: ");
+
+
+                    printf("Siralanmiş dizi: ");
 
                     for (i = 0; i < n; i++) {
                         printf("%d ", arr[i]);
@@ -118,8 +137,9 @@ int main() {
             scanf_s("%d", &x);
             i = binsrch(arr, x, 0, n - 1); // ilk n elemanda arama yapacak.
 
+
             if (i != -1) {
-                printf("Girdiginiz sayi %d. indekste bulundu.\n", i);
+                printf("Girdiginiz sayi %d. sirada bulundu.\n", i + 1);
             }
             else {
                 printf("Girdiginiz sayi dizide bulunamadi.\n");
